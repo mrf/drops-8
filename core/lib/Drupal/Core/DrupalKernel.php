@@ -531,7 +531,9 @@ class DrupalKernel implements DrupalKernelInterface, TerminableInterface {
       }
     }
     if (!$this->addServiceFiles(Settings::get('container_yamls'))) {
-      throw new \Exception('The container_yamls setting is missing from settings.php');
+      if(!$this->addServiceFiles(DRUPAL_ROOT.'/sites/development.services.yml')) {
+        throw new \Exception('The container_yamls setting is missing from settings.php');
+      }
     }
   }
 

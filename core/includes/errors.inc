@@ -240,7 +240,9 @@ function _drupal_log_error($error, $fatal = FALSE) {
           '#title' => 'Error',
           '#markup' => $message,
         );
-        install_display_output($output, $GLOBALS['install_state']);
+        if(function_exists('install_display_output')) {
+          install_display_output($output, $GLOBALS['install_state']);
+        }
       }
       else {
         $output = \Drupal::service('bare_html_page_renderer')->renderBarePage(['#markup' => $message], 'Error', 'maintenance_page');
